@@ -3,9 +3,11 @@
   <entry>
     <title>Markdown语法[基础]</title>
     <url>/2022/03/29/Markdown%E8%AF%AD%E6%B3%95-%E5%9F%BA%E7%A1%80/</url>
-    <content><![CDATA[<h1 id="文本元素"><a href="#文本元素" class="headerlink" title="文本元素"></a><strong>文本元素</strong></h1><ul>
-<li><h2 id="Markdown"><a href="#Markdown" class="headerlink" title="Markdown"></a><strong>Markdown</strong></h2>  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">**加粗**</span><br><span class="line"></span><br><span class="line">_斜体_</span><br><span class="line"></span><br><span class="line">~~删除线~~</span><br><span class="line"></span><br><span class="line">&lt;u&gt;下划线&lt;/u&gt;</span><br><span class="line"></span><br><span class="line">**_加粗斜体_**</span><br><span class="line"></span><br><span class="line">~~**加粗删除线**~~</span><br><span class="line"></span><br><span class="line">~~_斜体删除线_~~</span><br><span class="line"></span><br><span class="line">~~**_加粗斜体删除线_**~~</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<span id="more"></span></li>
+    <content><![CDATA[<p><strong>Markdown 是一种轻量级标记语言，在 2004 由约翰·格鲁伯创建，它允许人们使用纯文本格式编写文档，可以和HTML语法混搭。编写的文档可以导出 HTML 、Word、图像、PDF、Epub 等多种格式。</strong><br><strong>Markdown 编写的文档后缀为 .md, .markdown</strong></p>
+<span id="more"></span>
+
+<h1 id="文本元素"><a href="#文本元素" class="headerlink" title="文本元素"></a><strong>文本元素</strong></h1><ul>
+<li><h2 id="Markdown"><a href="#Markdown" class="headerlink" title="Markdown"></a><strong>Markdown</strong></h2>  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">**加粗**</span><br><span class="line"></span><br><span class="line">_斜体_</span><br><span class="line"></span><br><span class="line">~~删除线~~</span><br><span class="line"></span><br><span class="line">&lt;u&gt;下划线&lt;/u&gt;</span><br><span class="line"></span><br><span class="line">**_加粗斜体_**</span><br><span class="line"></span><br><span class="line">~~**加粗删除线**~~</span><br><span class="line"></span><br><span class="line">~~_斜体删除线_~~</span><br><span class="line"></span><br><span class="line">~~**_加粗斜体删除线_**~~</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
 <li><h2 id="实际输出效果"><a href="#实际输出效果" class="headerlink" title="实际输出效果"></a><strong>实际输出效果</strong></h2><p>  <strong>加粗</strong></p>
 <p>  <em>斜体</em></p>
 <p>  <del>删除线</del></p>
