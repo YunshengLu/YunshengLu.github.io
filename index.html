@@ -218,7 +218,16 @@ daovoice('update');
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-04-19 11:02:51 / 修改时间：12:02:13" itemprop="dateCreated datePublished" datetime="2022-04-19T11:02:51+08:00">2022-04-19</time>
+              <time title="创建时间：2022-04-19 11:02:51 / 修改时间：12:05:43" itemprop="dateCreated datePublished" datetime="2022-04-19T11:02:51+08:00">2022-04-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">javascript学习笔记</span></a>
+                </span>
             </span>
 
           
@@ -262,20 +271,15 @@ daovoice('update');
       
           <h1 id="js中的class"><a href="#js中的class" class="headerlink" title="js中的class"></a>js中的class</h1><ul>
 <li><p>js 早期版本没有class关键字,es6 提供了更接近其他传统语言的写法,引入了class(类)的概念,作为对象的模板，但是class只是语法糖，底层原型式面向对象并没有改变,他的绝大部分功能原型式面向对象都可以实现.class完全可以看做是构造函数的另一种写法,让js原型式面向对象更加清晰,更像一门面向对象的语言.</p>
-<h2 id="js-原型式的面向对象"><a href="#js-原型式的面向对象" class="headerlink" title="js 原型式的面向对象"></a>js 原型式的面向对象</h2>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Animal</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 实例属性</span></span><br><span class="line">    <span class="built_in">this</span>.params = params;</span><br><span class="line">    <span class="comment">// 静态属性</span></span><br><span class="line">    Animal.Color = <span class="string">&#x27;black&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line">Animal.prototype = &#123;</span><br><span class="line">    <span class="comment">// 实例方法,定义在Animal的原型上,通过实例调用</span></span><br><span class="line">    <span class="attr">sayHi</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;sayHi&#x27;</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">sayNo</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;sayNo&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 静态方法,定义在构造函数上,只能构造函数调用</span></span><br><span class="line">Animal.sayNo = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;sayNo&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="class-传统的面向对象"><a href="#class-传统的面向对象" class="headerlink" title="class 传统的面向对象"></a>class 传统的面向对象</h2>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// class es6 语法糖 相当于构造函数</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">    <span class="comment">// constructor每个类都有,没写会默认添加</span></span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">params</span>)</span> &#123;</span><br><span class="line">        <span class="comment">// 实例属性,实例可以访问到的属性</span></span><br><span class="line">        <span class="built_in">this</span>.params = params;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 实例方法,定义在Animal的原型上,通过实例调用</span></span><br><span class="line">    <span class="function"><span class="title">sayHi</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;sayHi&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 静态方法,定义在构造函数上,只能构造函数调用,这里指类本身</span></span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="title">sayNo</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;sayNo&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// class 添加静态属性的唯一方法</span></span><br><span class="line">Animal.Color = <span class="string">&#x27;black&#x27;</span>;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>在类中可以直接定义方法,但这些方法本质都是定义在类的prototype 属性上的,在类的实例上调用方法,其实就是调用原型链上的方法.</li>
-<li>constructor 方法是类的默认方法,一个类中必须有constructor()方法,constructor方法在new 时会自动调用.</li>
-<li>es6 规定class 只有静态方法,没有静态属性,所以只能通过在class外部 类名.属性 = ‘’ 的方式添加静态属性.</li>
-</ul>
-  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> animal = <span class="keyword">new</span> Animal();</span><br><span class="line">animal.sayHi(); <span class="comment">// sayHi 实例方法</span></span><br><span class="line"><span class="comment">// Animal.sayHi(); // TypeError: Animal.sayHi is not a function</span></span><br><span class="line"><span class="built_in">console</span>.log(Animal.prototype); <span class="comment">// class:&#123;&#125; 构造函数:&#123; sayHi: [Function: sayHi], sayNo: [Function: sayNo] &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(Animal.__proto__); <span class="comment">// &#123;&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(Animal.prototype.__proto__); <span class="comment">// [Object: null prototype] &#123;&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(Animal.__proto__.__proto__); <span class="comment">// [Object: null prototype] &#123;&#125;</span></span><br><span class="line">Animal.prototype.sayHi(); <span class="comment">// sayHi</span></span><br><span class="line"><span class="comment">// animal.sayNo(); // TypeError: animal.sayNo is not a function</span></span><br><span class="line">Animal.sayNo(); <span class="comment">// sayNo 静态方法</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>创建实例化对象,使用class 声明的类在构建实例时需用new关键字来进行,实例方法定义在类的prototype 属性上,通过实例调用,静态方法定义在构造函数上,由构造函数调用,使用class 时,这里指class 本身.<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Animal.sayHello = <span class="string">&#x27;Hello&#x27;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(Animal.__proto__.__proto__); <span class="comment">// [Object: null prototype] &#123;&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(Animal.sayHello); <span class="comment">// Hello</span></span><br><span class="line"><span class="built_in">console</span>.log(Animal.__proto__.__proto__); <span class="comment">// [Object: null prototype] &#123;&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(Animal.Color); <span class="comment">// black</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-
+<h2 id="js-原型式的面向对象"><a href="#js-原型式的面向对象" class="headerlink" title="js 原型式的面向对象"></a>js 原型式的面向对象</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/04/19/js%E4%B8%AD%E7%9A%84class/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -325,8 +329,17 @@ daovoice('update');
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-04-19 10:41:59" itemprop="dateModified" datetime="2022-04-19T10:41:59+08:00">2022-04-19</time>
+                <time title="修改时间：2022-04-19 12:05:58" itemprop="dateModified" datetime="2022-04-19T12:05:58+08:00">2022-04-19</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">javascript学习笔记</span></a>
+                </span>
+            </span>
 
           
   
@@ -685,7 +698,7 @@ daovoice('update');
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
