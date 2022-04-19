@@ -125,6 +125,86 @@
       </tags>
   </entry>
   <entry>
+    <title>js中数组操作</title>
+    <url>/2022/04/05/js%E4%B8%AD%E6%95%B0%E7%BB%84%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<h1 id="js数组"><a href="#js数组" class="headerlink" title="js数组"></a>js数组</h1><h2 id="判断是否是数组"><a href="#判断是否是数组" class="headerlink" title="判断是否是数组"></a>判断是否是数组</h2><pre><code>1. instanceof
+</code></pre>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [];</span><br><span class="line"><span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(arr <span class="keyword">instanceof</span> <span class="built_in">Array</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(obj <span class="keyword">instanceof</span> <span class="built_in">Array</span>); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<pre><code>instanceof 运算符用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上。
+</code></pre>
+<span id="more"></span>
+<pre><code>2. Array.isArray
+</code></pre>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [];</span><br><span class="line"><span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.isArray(arr)); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.isArray(obj)); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<h2 id="增加数组中元素"><a href="#增加数组中元素" class="headerlink" title="增加数组中元素"></a>增加数组中元素</h2><pre><code>1. .push()
+    - 尾部插入
+2. .unshift()
+    - 头部插入
+3. .concat()
+    - 尾部插入，创建了一个新数组，一般用来操作连接两个数组
+4. .splice(index,howmany,item1...,item2...,itemX)
+    - index-下标
+    - howmany-指定删除的元素数目，设置为0，就不执行删除操作，这样就可以用第三个参数来插入一个或多个元素
+</code></pre>
+<h2 id="删除数组中的元素"><a href="#删除数组中的元素" class="headerlink" title="删除数组中的元素"></a>删除数组中的元素</h2><pre><code>1. .pop()
+    - 尾部删除
+2. .shift()
+    - 头部删除
+3. .splice(index,howmany,item1...,item2...,itemX)
+</code></pre>
+<h2 id="数组排序"><a href="#数组排序" class="headerlink" title="数组排序"></a>数组排序</h2><pre><code>1. 翻转数组   
+    - .reverse()
+2. 数组排序(冒泡排序)
+    - .sort()
+    - 按 ASCLL 码来排序直接用 .sort()来排序在很多时候结果不是想要的，该方法有特定写法：   
+    
+</code></pre>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">13</span>,<span class="number">1</span>,<span class="number">7</span>,<span class="number">77</span>,<span class="number">5</span>]</span><br><span class="line">arr.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//return a - b; // 升序排序</span></span><br><span class="line">    <span class="keyword">return</span> b-a; <span class="comment">// 降序排序</span></span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="数组索引方法"><a href="#数组索引方法" class="headerlink" title="数组索引方法"></a>数组索引方法</h2><pre><code>1. indexOf(数组元素)
+    - 在数组中查找给定元素的第一个索引，如果存在返回索引号，不存在返回-1
+2. lastIndexOf(数组元素)
+    - 在数组中查找给定元素的最后一个索引，如果存在返回索引号，不存在返回-1
+</code></pre>
+<h2 id="数组去重"><a href="#数组去重" class="headerlink" title="数组去重"></a>数组去重</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">uniques</span>(<span class="params">arr</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> newArr = [];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;arr.length; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(newArr.indexOf(arr[i]) === -<span class="number">1</span>)&#123;</span><br><span class="line">            newArr.push(arr[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> newArr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="数组转换字符串"><a href="#数组转换字符串" class="headerlink" title="数组转换字符串"></a>数组转换字符串</h2><pre><code>1. .toString()
+2. .join(&#39;分隔符&#39;) // 括号中为空则默认用 &#39;,&#39; 分割
+</code></pre>
+<h2 id="数组截取"><a href="#数组截取" class="headerlink" title="数组截取"></a>数组截取</h2><pre><code>1. slice(begin,end)
+</code></pre>
+]]></content>
+      <tags>
+        <tag>javascript</tag>
+        <tag>笔记</tag>
+        <tag>数组</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>js中的class</title>
+    <url>/2022/04/19/js%E4%B8%AD%E7%9A%84class/</url>
+    <content><![CDATA[<h1 id="js中的class"><a href="#js中的class" class="headerlink" title="js中的class"></a>js中的class</h1><ul>
+<li><p>js 早期版本没有class关键字,es6 提供了更接近其他传统语言的写法,引入了class(类)的概念,作为对象的模板，但是class只是语法糖，底层原型式面向对象并没有改变,他的绝大部分功能原型式面向对象都可以实现.class完全可以看做是构造函数的另一种写法,让js原型式面向对象更加清晰,更像一门面向对象的语言.</p>
+<h2 id="js-原型式的面向对象"><a href="#js-原型式的面向对象" class="headerlink" title="js 原型式的面向对象"></a>js 原型式的面向对象</h2>  <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Animal</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 实例属性</span></span><br><span class="line">    <span class="built_in">this</span>.params = params;</span><br><span class="line">    <span class="comment">// 静态属性</span></span><br><span class="line">    Animal.Color = <span class="string">&#x27;black&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line">Animal.prototype = &#123;</span><br><span class="line">    <span class="comment">// 实例方法,定义在Animal的原型上,通过实例调用</span></span><br><span class="line">    <span class="attr">sayHi</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;sayHi&#x27;</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">sayNo</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;sayNo&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 静态方法,定义在构造函数上,只能构造函数调用</span></span><br><span class="line">Animal.sayNo = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;sayNo&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="class-传统的面向对象"><a href="#class-传统的面向对象" class="headerlink" title="class 传统的面向对象"></a>class 传统的面向对象</h2>  <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// class es6 语法糖 相当于构造函数</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">    <span class="comment">// constructor每个类都有,没写会默认添加</span></span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">params</span>)</span> &#123;</span><br><span class="line">        <span class="comment">// 实例属性,实例可以访问到的属性</span></span><br><span class="line">        <span class="built_in">this</span>.params = params;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 实例方法,定义在Animal的原型上,通过实例调用</span></span><br><span class="line">    <span class="function"><span class="title">sayHi</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;sayHi&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 静态方法,定义在构造函数上,只能构造函数调用,这里指类本身</span></span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="title">sayNo</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;sayNo&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// class 添加静态属性的唯一方法</span></span><br><span class="line">Animal.Color = <span class="string">&#x27;black&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在类中可以直接定义方法,但这些方法本质都是定义在类的prototype 属性上的,在类的实例上调用方法,其实就是调用原型链上的方法.</li>
+<li>constructor 方法是类的默认方法,一个类中必须有constructor()方法,constructor方法在new 时会自动调用.</li>
+<li>es6 规定class 只有静态方法,没有静态属性,所以只能通过在class外部 类名.属性 = ‘’ 的方式添加静态属性.</li>
+</ul>
+  <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> animal = <span class="keyword">new</span> Animal();</span><br><span class="line">animal.sayHi(); <span class="comment">// sayHi 实例方法</span></span><br><span class="line"><span class="comment">// Animal.sayHi(); // TypeError: Animal.sayHi is not a function</span></span><br><span class="line"><span class="built_in">console</span>.log(Animal.prototype); <span class="comment">// class:&#123;&#125; 构造函数:&#123; sayHi: [Function: sayHi], sayNo: [Function: sayNo] &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(Animal.__proto__); <span class="comment">// &#123;&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(Animal.prototype.__proto__); <span class="comment">// [Object: null prototype] &#123;&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(Animal.__proto__.__proto__); <span class="comment">// [Object: null prototype] &#123;&#125;</span></span><br><span class="line">Animal.prototype.sayHi(); <span class="comment">// sayHi</span></span><br><span class="line"><span class="comment">// animal.sayNo(); // TypeError: animal.sayNo is not a function</span></span><br><span class="line">Animal.sayNo(); <span class="comment">// sayNo 静态方法</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建实例化对象,使用class 声明的类在构建实例时需用new关键字来进行,实例方法定义在类的prototype 属性上,通过实例调用,静态方法定义在构造函数上,由构造函数调用,使用class 时,这里指class 本身.<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Animal.sayHello = <span class="string">&#x27;Hello&#x27;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(Animal.__proto__.__proto__); <span class="comment">// [Object: null prototype] &#123;&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(Animal.sayHello); <span class="comment">// Hello</span></span><br><span class="line"><span class="built_in">console</span>.log(Animal.__proto__.__proto__); <span class="comment">// [Object: null prototype] &#123;&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(Animal.Color); <span class="comment">// black</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>javascript</tag>
+        <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>新版VSCode git bash终端配置</title>
     <url>/2022/01/23/%E6%96%B0%E7%89%88VSCode%20git%20bash%E7%BB%88%E7%AB%AF%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<p><strong>当VSCode升级至1.57.1时，会出现警告提示：</strong><br>  此项已弃用，配置默认 shell 的新推荐方法是在 #terminal.integrated.profiles.windows# 中创建一个终端配置文件，并将其配置文件名称设置为 #terminal.integrated.defaultProfile.windows# 中的默认值</p>
