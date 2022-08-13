@@ -1,6 +1,212 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>新版VSCode git bash终端配置</title>
+    <url>/2022/01/23/%E6%96%B0%E7%89%88VSCode%20git%20bash%E7%BB%88%E7%AB%AF%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<p><strong>当VSCode升级至1.57.1时，会出现警告提示：</strong><br>  此项已弃用，配置默认 shell 的新推荐方法是在 #terminal.integrated.profiles.windows# 中创建一个终端配置文件，并将其配置文件名称设置为 #terminal.integrated.defaultProfile.windows# 中的默认值</p>
+<span id="more"></span>
+
+<h2 id="官方文档给予的解决方法"><a href="#官方文档给予的解决方法" class="headerlink" title="官方文档给予的解决方法"></a><a href="https://code.visualstudio.com/docs/editor/integrated-terminal">官方文档</a>给予的解决方法</h2><p>将seetings.json下面的</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;terminal.integrated.shell.windows&quot;</span>: <span class="string">&quot;C:\\Program Files\\Git\\bin\\bash.exe&quot;</span>：</span><br></pre></td></tr></table></figure>
+<p>更改为：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;terminal.integrated.profiles.windows&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;cmder&quot;</span>: &#123;</span><br><span class="line">      <span class="string">&quot;path&quot;</span>: <span class="string">&quot;C:\\WINDOWS\\System32\\cmd.exe&quot;</span>,</span><br><span class="line">      <span class="string">&quot;args&quot;</span>: [<span class="string">&quot;/K&quot;</span>, <span class="string">&quot;C:\\cmder\\vendor\\bin\\vscode_init.cmd&quot;</span>]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">&quot;terminal.integrated.defaultProfile.windows&quot;</span>: <span class="string">&quot;cmder&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实测依旧报错</p>
+<h2 id="现解决方法"><a href="#现解决方法" class="headerlink" title="现解决方法"></a>现解决方法</h2><p>更改上方代码为以下代码：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;terminal.integrated.profiles.windows&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;my-cmd&quot;</span>: &#123;</span><br><span class="line">      <span class="string">&quot;path&quot;</span>: <span class="string">&quot;C:\\Windows\\System32\\cmd.exe&quot;</span>,</span><br><span class="line">      <span class="string">&quot;args&quot;</span>: []</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">&quot;terminal.integrated.defaultProfile.windows&quot;</span>: <span class="string">&quot;my-cmd&quot;</span>,</span><br></pre></td></tr></table></figure>
+<p>  截至1.64.2版本实测没问题。</p>
+]]></content>
+      <categories>
+        <category>Code</category>
+      </categories>
+      <tags>
+        <tag>VS Code</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>js中的class</title>
+    <url>/2022/04/19/js%E4%B8%AD%E7%9A%84class/</url>
+    <content><![CDATA[<h1 id="js中的Class"><a href="#js中的Class" class="headerlink" title="js中的Class"></a>js中的Class</h1><ul>
+<li><p>js 早期版本没有class关键字,ES6 提供了更接近其他传统语言的写法,引入了class(类)的概念,作为对象的模板，但是class只是语法糖，底层原型式面向对象并没有改变,他的绝大部分功能原型式面向对象都可以实现.class完全可以看做是构造函数的另一种写法,让js原型式面向对象更加清晰,更像一门面向对象的语言.</p>
+<h2 id="js-原型式的面向对象"><a href="#js-原型式的面向对象" class="headerlink" title="js 原型式的面向对象"></a>js 原型式的面向对象</h2>  <span id="more"></span>
+  <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Animal</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 实例属性</span></span><br><span class="line">    <span class="built_in">this</span>.params = params;</span><br><span class="line">    <span class="comment">// 静态属性</span></span><br><span class="line">    Animal.Color = <span class="string">&#x27;black&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line">Animal.prototype = &#123;</span><br><span class="line">    <span class="comment">// 实例方法,定义在Animal的原型上,通过实例调用</span></span><br><span class="line">    <span class="attr">sayHi</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;sayHi&#x27;</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">sayNo</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;sayNo&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 静态方法,定义在构造函数上,只能构造函数调用</span></span><br><span class="line">Animal.sayNo = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;sayNo&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="class-传统的面向对象"><a href="#class-传统的面向对象" class="headerlink" title="class 传统的面向对象"></a>class 传统的面向对象</h2>  <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// class es6 语法糖 相当于构造函数</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">    <span class="comment">// constructor每个类都有,没写会默认添加</span></span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">params</span>)</span> &#123;</span><br><span class="line">        <span class="comment">// 实例属性,实例可以访问到的属性</span></span><br><span class="line">        <span class="built_in">this</span>.params = params;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 实例方法,定义在Animal的原型上,通过实例调用</span></span><br><span class="line">    <span class="function"><span class="title">sayHi</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;sayHi&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 静态方法,定义在构造函数上,只能构造函数调用,这里指类本身</span></span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="title">sayNo</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;sayNo&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// class 添加静态属性的唯一方法</span></span><br><span class="line">Animal.Color = <span class="string">&#x27;black&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在类中可以直接定义方法,但这些方法本质都是定义在类的prototype 属性上的,在类的实例上调用方法,其实就是调用原型链上的方法.</li>
+<li>constructor 方法是类的默认方法,一个类中必须有constructor()方法,constructor方法在new 时会自动调用.<br>  他用于创建对象时给类传递一些参数<br>  每个类只能有一个constructor，多写会报错          </li>
+<li>es6 规定class 只有静态方法,没有静态属性,所以只能通过在class外部 类名.属性 = ‘’ 的方式添加静态属性.</li>
+<li>class和方法内默认都是严格模式</li>
+</ul>
+  <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> animal = <span class="keyword">new</span> Animal();</span><br><span class="line">animal.sayHi(); <span class="comment">// sayHi 实例方法</span></span><br><span class="line"><span class="comment">// Animal.sayHi(); // TypeError: Animal.sayHi is not a function</span></span><br><span class="line"><span class="built_in">console</span>.log(Animal.prototype); <span class="comment">// class:&#123;&#125; 构造函数:&#123; sayHi: [Function: sayHi], sayNo: [Function: sayNo] &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(animal.__proto__); <span class="comment">// &#123; sayHi: [Function: sayHi], sayNo: [Function: sayNo] &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(animal.__proto__.__proto__); <span class="comment">// [Object: null prototype] &#123;&#125;</span></span><br><span class="line">Animal.prototype.sayHi(); <span class="comment">// sayHi</span></span><br><span class="line"><span class="comment">// animal.sayNo(); // TypeError: animal.sayNo is not a function</span></span><br><span class="line">Animal.sayNo(); <span class="comment">// sayNo 静态方法</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建实例化对象,使用class 声明的类在构建实例时需用new关键字来进行,实例方法定义在类的prototype 属性上,通过实例调用,静态方法定义在构造函数上,由构造函数调用,使用class 时,这里指class 本身.       </li>
+</ul>
+  <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Animal.sayHello = <span class="string">&#x27;Hello&#x27;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(Animal.sayHello); <span class="comment">// Hello</span></span><br><span class="line"><span class="built_in">console</span>.log(Animal.Color); <span class="comment">// black</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h1><h2 id="原生构造函数的继承"><a href="#原生构造函数的继承" class="headerlink" title="原生构造函数的继承"></a>原生构造函数的继承</h2><ul>
+<li>首先需要一个父类</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Animal</span>(<span class="params"></span>) </span>&#123; <span class="comment">// 父类</span></span><br><span class="line">    <span class="built_in">this</span>.species = <span class="string">&#x27;动物&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line">Animal.prototype.sayHi = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;sayHi&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-实例继承（原型链继承）"><a href="#1-实例继承（原型链继承）" class="headerlink" title="1.实例继承（原型链继承）"></a>1.实例继承（原型链继承）</h3><ul>
+<li>父类的实例作为子类的原型</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params">name, color</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.color = color;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// prototype模式</span></span><br><span class="line">Cat.prototype = <span class="keyword">new</span> Animal(); <span class="comment">// 原型对象 Cat 继承到 Animal spacies属性</span></span><br><span class="line"><span class="keyword">let</span> cat = <span class="keyword">new</span> Cat(<span class="string">&#x27;---&#x27;</span>,<span class="string">&#x27;---&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(cat.species,cat.sayHi()); <span class="comment">// sayHi  动物</span></span><br><span class="line"><span class="built_in">console</span>.log(Cat.prototype.constructor); <span class="comment">// [Function: Animal]</span></span><br><span class="line"><span class="built_in">console</span>.log(cat.__proto__); <span class="comment">// Animal &#123; species: &#x27;动物&#x27; &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(cat.__proto__.__proto__); <span class="comment">//&#123; sayHi: [Function (anonymous)] &#125;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>这种继承方式简单易于实现，父类的新增的实例与属性/方法、新增的原型方法/原型属性子类都能访问，实例是子类的实例，也是父类的实例.</p>
+</li>
+<li><p>原型链继承创建子类实例时，不能向父类构造函数中传参数来初始化属性的继承，更重要的是继承的父类的属性是所有子类共享的<u>new Animal()这个对象实例上的属性</u>，这就会导致如果更改了该对象实例的属性，那么这个改变就是所有子类实例共享的.</p>
+</li>
+<li><p>原型链继承无法实现多继承</p>
+<h3 id="2-借用构造函数绑定来继承（伪造对象、经典继承）"><a href="#2-借用构造函数绑定来继承（伪造对象、经典继承）" class="headerlink" title="2.借用构造函数绑定来继承（伪造对象、经典继承）"></a>2.借用构造函数绑定来继承（伪造对象、经典继承）</h3><ul>
+<li>使用父类的构造函数来增强子类实例，相当于是复制父类的实例属性给子类</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params">name, color</span>) </span>&#123;</span><br><span class="line">    Animal.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.color = color;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> cat = <span class="keyword">new</span> Cat(<span class="string">&#x27;---&#x27;</span>,<span class="string">&#x27;---&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(cat); <span class="comment">// Cat &#123; species: &#x27;动物&#x27;, name: &#x27;---&#x27;, color: &#x27;---&#x27; &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(Cat.prototype.constructor); <span class="comment">// [Function: Cat]</span></span><br><span class="line"><span class="built_in">console</span>.log(cat.species); <span class="comment">// 动物</span></span><br><span class="line"><span class="built_in">console</span>.log(cat.sayHi()); <span class="comment">// 报错cat.sayHi is not a function</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>构造继承在子类的构造函数中调用父类的构造函数，这样父类构造函数中的属性就出现在了子类的构造函数中.</li>
+<li>构造继承解决了子类构造函数向父类构造函数中传递参数的问题，并且可以实现多继承（call或者apply多个父类）              </li>
+<li>构造继承子类无法继承父类原型上的方法，所以在实例cat调用父类原型上的sayHi()时会报错.</li>
+</ul>
+<h3 id="3-组合式继承"><a href="#3-组合式继承" class="headerlink" title="3.组合式继承"></a>3.组合式继承</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params">name, color</span>) </span>&#123;</span><br><span class="line">    Animal.apply(<span class="built_in">this</span>,<span class="built_in">arguments</span>);</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.color = color;</span><br><span class="line">&#125;</span><br><span class="line">Cat.prototype = <span class="keyword">new</span> Animal();</span><br><span class="line">Cat.prototype.constructor = Cat;</span><br><span class="line"><span class="keyword">let</span> cat = <span class="keyword">new</span> Cat(<span class="string">&#x27;---&#x27;</span>,<span class="string">&#x27;---&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(cat); <span class="comment">// Cat &#123; species: &#x27;动物&#x27;, name: &#x27;---&#x27;, color: &#x27;---&#x27; &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(Cat.prototype.constructor); <span class="comment">// [Function: Cat]</span></span><br><span class="line"><span class="built_in">console</span>.log(cat.species); <span class="comment">// 动物</span></span><br><span class="line"><span class="built_in">console</span>.log(cat.sayHi()); <span class="comment">// sayHi</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>这种继承方式既可以继承父类属性和方法，也可以继承父类原型的属性和方法</p>
+</li>
+<li><p>组合式继承由于调用了两次父类，所以产生了两份实例        </p>
+</li>
+</ul>
+<h2 id="ES6-class的继承"><a href="#ES6-class的继承" class="headerlink" title="ES6 class的继承"></a>ES6 class的继承</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">sayHi</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;<span class="built_in">this</span>.name&#125;</span>打招呼`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 继承父类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span> <span class="keyword">extends</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">name,type</span>)</span>&#123;</span><br><span class="line">        <span class="comment">// 继承父类属性</span></span><br><span class="line">        <span class="comment">// super在这里表示父类的构造函数，用来新建一个父类的实例对象</span></span><br><span class="line">        <span class="built_in">super</span>(name); <span class="comment">// 调用父类的constructor(name)</span></span><br><span class="line">        <span class="built_in">this</span>.type = type;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">sayHi</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;<span class="built_in">this</span>.name&#125;</span>汪汪汪`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用Object.getPrototypeOf()方法来从子类上获取父类</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getPrototypeOf(Dog)); <span class="comment">// [class Animal]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> dog = <span class="keyword">new</span> Dog(<span class="string">&#x27;大毛&#x27;</span>,<span class="string">&#x27;金毛&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(dog); <span class="comment">// Dog &#123; name: &#x27;大毛&#x27;, type: &#x27;金毛&#x27; &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(dog.__proto__); <span class="comment">// Animal &#123;&#125;</span></span><br><span class="line">dog.sayHi(); <span class="comment">//大毛汪汪汪</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><p>class可以通过extends关键字直接实现子类继承父类的属性和方法.  </p>
+</li>
+<li><p>代码量少，简单易懂，extends 的写法比 ES5 的原型链继承，要清晰和方便很多. </p>
+</li>
+<li><p>通过extends关键字实现子类继承父类,除了私有属性，父类的所有属性和方法，都会被子类继承，包括静态方法</p>
+</li>
+<li><p>值得注意的是，ES6 规定，子类必须在constructor()方法中调用super()，然后才能再添加子类自己的实例属性和方法，否则就会报错.这是因为如果不调用super()方法，子类就得不到自己的this对象.子类实例的构建，必须先完成父类的继承，只有super()方法才能让子类实例继承父类.</p>
+</li>
+</ul>
+<h2 id="ES6-的继承机制与-ES5-的不同"><a href="#ES6-的继承机制与-ES5-的不同" class="headerlink" title="ES6 的继承机制与 ES5 的不同."></a>ES6 的继承机制与 ES5 的不同.</h2><ul>
+<li>ES5 的继承机制，首先是在子类中创建自己的this指向，最后将父类的方法添加到this中，即“实例在前，继承在后”，是先创造一个独立的子类的实例对象，然后再将父类的方法添加到这个对象上面.      </li>
+<li>ES6 的继承机制，是使用关键字先创建父类的实例对象this，最后在子类class中修改this，即“继承在前，实例在后”，即先将父类的属性和方法，加到一个空的对象上面，调用super()方法生成一个继承父类的this对象，然后再将该对象作为子类的实例.</li>
+</ul>
+]]></content>
+      <categories>
+        <category>javascript学习笔记</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+        <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>js执行流程及event Loop</title>
+    <url>/2022/05/26/js%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B%E5%8F%8AeventLoop/</url>
+    <content><![CDATA[<h2 id="异步"><a href="#异步" class="headerlink" title="异步"></a>异步</h2><p>​        javascript 语言的一大特点就是单线程，但明明是一个单线程的语言，却可以在某些方面上做到多线程的性能，这篇文章记录 javascript 的单线程及event Loop。</p>
+<span id="more"></span>
+
+<h1 id="异步编程"><a href="#异步编程" class="headerlink" title="异步编程"></a>异步编程</h1><h2 id="JS-执行流程"><a href="#JS-执行流程" class="headerlink" title="JS 执行流程"></a>JS 执行流程</h2><pre><code>1.  主线程读取JS 代码，此时是同步环境，形成对应的堆和执行栈
+2.  主线程遇见异步任务，会将异步任务扔给异步线程进行处理
+3.  异步进行处理完毕，将对应的异步任务推入任务队列
+4.  主线程查询任务队列，执行微任务，将其按照顺序执行，全部执行完毕
+5.  主线程查询任务队列，执行宏任务，取得第一个宏任务，执行完毕
+6.  重复4、5步骤
+</code></pre>
+<h2 id="多线程的浏览器"><a href="#多线程的浏览器" class="headerlink" title="多线程的浏览器"></a>多线程的浏览器</h2><p>浏览器的内核是多线程的，在内核的控制下各个线程相互配合以保持同步</p>
+<ul>
+<li><p>一个浏览器通常由以下常驻线程组成:</p>
+<ul>
+<li>GUI 渲染线程: 绘制用户界面，与js 主线程是互斥的</li>
+<li>Javascript 引擎线程: 解释执行js 代码、用户输入、网络请求</li>
+<li>事件触发线程: click、mouse 等交互事件发生后将这些事件放入事件队列</li>
+<li>定时触发线程: setTimeout、setInterval 等待时间结束后把执行函数推入任务队列中</li>
+<li>异步http 求情线程: 处理用户的get、post等请求，等返回结果后将回调函数推入任务队列<h3 id="单线程的JS"><a href="#单线程的JS" class="headerlink" title="单线程的JS"></a>单线程的JS</h3></li>
+</ul>
+</li>
+<li><p>Javascript 引擎线程就是执行js 脚本程序的地方，而js 引擎是多线程的<br>   <strong>js 单线程是指js 引擎执行js 时只分配了一个线程给他执行</strong></p>
+<h3 id="Event-Loop"><a href="#Event-Loop" class="headerlink" title="Event Loop"></a>Event Loop</h3></li>
+<li><p>even loop 的任务队列放在了浏览器的事件触发线程中，当js 引擎执行异步函数的时候，会将异步任务放在事件触发线程中</p>
+</li>
+<li><p>任务队列是一个线程</p>
+</li>
+<li><p>process.nextTick() 微任务 优先级高于promise </p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>javascript学习笔记</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+        <tag>笔记</tag>
+        <tag>Promise</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>js中数组操作</title>
+    <url>/2022/04/05/js%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8API/</url>
+    <content><![CDATA[<h1 id="js数组"><a href="#js数组" class="headerlink" title="js数组"></a>js数组</h1><h2 id="判断是否是数组"><a href="#判断是否是数组" class="headerlink" title="判断是否是数组"></a>判断是否是数组</h2><pre><code>1. instanceof
+</code></pre>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [];</span><br><span class="line"><span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(arr <span class="keyword">instanceof</span> <span class="built_in">Array</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(obj <span class="keyword">instanceof</span> <span class="built_in">Array</span>); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<pre><code>instanceof 运算符用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上。
+</code></pre>
+<span id="more"></span>
+<pre><code>2. Array.isArray
+</code></pre>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [];</span><br><span class="line"><span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.isArray(arr)); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.isArray(obj)); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<h2 id="增加数组中元素"><a href="#增加数组中元素" class="headerlink" title="增加数组中元素"></a>增加数组中元素</h2><pre><code>1. .push()
+    - 尾部插入
+2. .unshift()
+    - 头部插入
+3. .concat()
+    - 尾部插入，创建了一个新数组，一般用来操作连接两个数组
+4. .splice(index,howmany,item1...,item2...,itemX)
+    - index-下标
+    - howmany-指定删除的元素数目，设置为0，就不执行删除操作，这样就可以用第三个参数来插入一个或多个元素
+5. arr[arr.length] = 你想添加的元素
+</code></pre>
+<h2 id="删除数组中的元素"><a href="#删除数组中的元素" class="headerlink" title="删除数组中的元素"></a>删除数组中的元素</h2><pre><code>1. .pop()
+    - 尾部删除
+2. .shift()
+    - 头部删除
+3. .splice(index,howmany,item1...,item2...,itemX)
+</code></pre>
+<h2 id="数组排序"><a href="#数组排序" class="headerlink" title="数组排序"></a>数组排序</h2><pre><code>1. 翻转数组   
+    - .reverse()
+2. 数组排序(冒泡排序)
+    - .sort()
+    - 按 ASCLL 码来排序直接用 .sort()来排序在很多时候结果不是想要的，该方法有特定写法：   
+</code></pre>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">13</span>,<span class="number">1</span>,<span class="number">7</span>,<span class="number">77</span>,<span class="number">5</span>]</span><br><span class="line">arr.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//return a - b; // 升序排序</span></span><br><span class="line">    <span class="keyword">return</span> b-a; <span class="comment">// 降序排序</span></span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="数组索引方法"><a href="#数组索引方法" class="headerlink" title="数组索引方法"></a>数组索引方法</h2><pre><code>1. indexOf(数组元素)
+    - 在数组中查找给定元素的第一个索引，如果存在返回索引号，不存在返回-1
+2. lastIndexOf(数组元素)
+    - 在数组中查找给定元素的最后一个索引，如果存在返回索引号，不存在返回-1
+</code></pre>
+<h2 id="数组去重"><a href="#数组去重" class="headerlink" title="数组去重"></a>数组去重</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">uniques</span>(<span class="params">arr</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> newArr = [];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;arr.length; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(newArr.indexOf(arr[i]) === -<span class="number">1</span>)&#123;</span><br><span class="line">            newArr.push(arr[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> newArr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="数组转换字符串"><a href="#数组转换字符串" class="headerlink" title="数组转换字符串"></a>数组转换字符串</h2><pre><code>1. .toString()
+2. .join(&#39;分隔符&#39;) // 括号中为空则默认用 &#39;,&#39; 分割
+</code></pre>
+<h2 id="数组截取"><a href="#数组截取" class="headerlink" title="数组截取"></a>数组截取</h2><pre><code>1. slice(begin,end)
+</code></pre>
+]]></content>
+      <categories>
+        <category>javascript学习笔记</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+        <tag>笔记</tag>
+        <tag>数组</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Markdown语法[基础]</title>
     <url>/2022/03/29/Markdown%E8%AF%AD%E6%B3%95-%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<p><strong>Markdown 是一种轻量级标记语言，在 2004 由约翰·格鲁伯创建，它允许人们使用纯文本格式编写文档，可以和HTML语法混搭。编写的文档可以导出 HTML 、Word、图像、PDF、Epub 等多种格式。</strong><br><u>本文仅自我学习笔记<u><br><strong>Markdown 编写的文档后缀为 .md, .markdown</strong></p>
@@ -122,169 +328,6 @@
       </categories>
       <tags>
         <tag>Markdown</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>新版VSCode git bash终端配置</title>
-    <url>/2022/01/23/%E6%96%B0%E7%89%88VSCode%20git%20bash%E7%BB%88%E7%AB%AF%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<p><strong>当VSCode升级至1.57.1时，会出现警告提示：</strong><br>  此项已弃用，配置默认 shell 的新推荐方法是在 #terminal.integrated.profiles.windows# 中创建一个终端配置文件，并将其配置文件名称设置为 #terminal.integrated.defaultProfile.windows# 中的默认值</p>
-<span id="more"></span>
-
-<h2 id="官方文档给予的解决方法"><a href="#官方文档给予的解决方法" class="headerlink" title="官方文档给予的解决方法"></a><a href="https://code.visualstudio.com/docs/editor/integrated-terminal">官方文档</a>给予的解决方法</h2><p>将seetings.json下面的</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="string">&quot;terminal.integrated.shell.windows&quot;</span>: <span class="string">&quot;C:\\Program Files\\Git\\bin\\bash.exe&quot;</span>：</span><br></pre></td></tr></table></figure>
-<p>更改为：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;terminal.integrated.profiles.windows&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;cmder&quot;</span>: &#123;</span><br><span class="line">      <span class="string">&quot;path&quot;</span>: <span class="string">&quot;C:\\WINDOWS\\System32\\cmd.exe&quot;</span>,</span><br><span class="line">      <span class="string">&quot;args&quot;</span>: [<span class="string">&quot;/K&quot;</span>, <span class="string">&quot;C:\\cmder\\vendor\\bin\\vscode_init.cmd&quot;</span>]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">&quot;terminal.integrated.defaultProfile.windows&quot;</span>: <span class="string">&quot;cmder&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>实测依旧报错</p>
-<h2 id="现解决方法"><a href="#现解决方法" class="headerlink" title="现解决方法"></a>现解决方法</h2><p>更改上方代码为以下代码：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;terminal.integrated.profiles.windows&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;my-cmd&quot;</span>: &#123;</span><br><span class="line">      <span class="string">&quot;path&quot;</span>: <span class="string">&quot;C:\\Windows\\System32\\cmd.exe&quot;</span>,</span><br><span class="line">      <span class="string">&quot;args&quot;</span>: []</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">&quot;terminal.integrated.defaultProfile.windows&quot;</span>: <span class="string">&quot;my-cmd&quot;</span>,</span><br></pre></td></tr></table></figure>
-<p>  截至1.64.2版本实测没问题。</p>
-]]></content>
-      <categories>
-        <category>Code</category>
-      </categories>
-      <tags>
-        <tag>VS Code</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>js中数组操作</title>
-    <url>/2022/04/05/js%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84%E5%B8%B8%E7%94%A8API/</url>
-    <content><![CDATA[<h1 id="js数组"><a href="#js数组" class="headerlink" title="js数组"></a>js数组</h1><h2 id="判断是否是数组"><a href="#判断是否是数组" class="headerlink" title="判断是否是数组"></a>判断是否是数组</h2><pre><code>1. instanceof
-</code></pre>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [];</span><br><span class="line"><span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(arr <span class="keyword">instanceof</span> <span class="built_in">Array</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(obj <span class="keyword">instanceof</span> <span class="built_in">Array</span>); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-<pre><code>instanceof 运算符用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上。
-</code></pre>
-<span id="more"></span>
-<pre><code>2. Array.isArray
-</code></pre>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [];</span><br><span class="line"><span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.isArray(arr)); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Array</span>.isArray(obj)); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-<h2 id="增加数组中元素"><a href="#增加数组中元素" class="headerlink" title="增加数组中元素"></a>增加数组中元素</h2><pre><code>1. .push()
-    - 尾部插入
-2. .unshift()
-    - 头部插入
-3. .concat()
-    - 尾部插入，创建了一个新数组，一般用来操作连接两个数组
-4. .splice(index,howmany,item1...,item2...,itemX)
-    - index-下标
-    - howmany-指定删除的元素数目，设置为0，就不执行删除操作，这样就可以用第三个参数来插入一个或多个元素
-5. arr[arr.length] = 你想添加的元素
-</code></pre>
-<h2 id="删除数组中的元素"><a href="#删除数组中的元素" class="headerlink" title="删除数组中的元素"></a>删除数组中的元素</h2><pre><code>1. .pop()
-    - 尾部删除
-2. .shift()
-    - 头部删除
-3. .splice(index,howmany,item1...,item2...,itemX)
-</code></pre>
-<h2 id="数组排序"><a href="#数组排序" class="headerlink" title="数组排序"></a>数组排序</h2><pre><code>1. 翻转数组   
-    - .reverse()
-2. 数组排序(冒泡排序)
-    - .sort()
-    - 按 ASCLL 码来排序直接用 .sort()来排序在很多时候结果不是想要的，该方法有特定写法：   
-</code></pre>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">13</span>,<span class="number">1</span>,<span class="number">7</span>,<span class="number">77</span>,<span class="number">5</span>]</span><br><span class="line">arr.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//return a - b; // 升序排序</span></span><br><span class="line">    <span class="keyword">return</span> b-a; <span class="comment">// 降序排序</span></span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
-
-<h2 id="数组索引方法"><a href="#数组索引方法" class="headerlink" title="数组索引方法"></a>数组索引方法</h2><pre><code>1. indexOf(数组元素)
-    - 在数组中查找给定元素的第一个索引，如果存在返回索引号，不存在返回-1
-2. lastIndexOf(数组元素)
-    - 在数组中查找给定元素的最后一个索引，如果存在返回索引号，不存在返回-1
-</code></pre>
-<h2 id="数组去重"><a href="#数组去重" class="headerlink" title="数组去重"></a>数组去重</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">uniques</span>(<span class="params">arr</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> newArr = [];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;arr.length; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(newArr.indexOf(arr[i]) === -<span class="number">1</span>)&#123;</span><br><span class="line">            newArr.push(arr[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> newArr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="数组转换字符串"><a href="#数组转换字符串" class="headerlink" title="数组转换字符串"></a>数组转换字符串</h2><pre><code>1. .toString()
-2. .join(&#39;分隔符&#39;) // 括号中为空则默认用 &#39;,&#39; 分割
-</code></pre>
-<h2 id="数组截取"><a href="#数组截取" class="headerlink" title="数组截取"></a>数组截取</h2><pre><code>1. slice(begin,end)
-</code></pre>
-]]></content>
-      <categories>
-        <category>javascript学习笔记</category>
-      </categories>
-      <tags>
-        <tag>javascript</tag>
-        <tag>笔记</tag>
-        <tag>数组</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>js中的class</title>
-    <url>/2022/04/19/js%E4%B8%AD%E7%9A%84class/</url>
-    <content><![CDATA[<h1 id="js中的Class"><a href="#js中的Class" class="headerlink" title="js中的Class"></a>js中的Class</h1><ul>
-<li><p>js 早期版本没有class关键字,ES6 提供了更接近其他传统语言的写法,引入了class(类)的概念,作为对象的模板，但是class只是语法糖，底层原型式面向对象并没有改变,他的绝大部分功能原型式面向对象都可以实现.class完全可以看做是构造函数的另一种写法,让js原型式面向对象更加清晰,更像一门面向对象的语言.</p>
-<h2 id="js-原型式的面向对象"><a href="#js-原型式的面向对象" class="headerlink" title="js 原型式的面向对象"></a>js 原型式的面向对象</h2>  <span id="more"></span>
-  <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Animal</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 实例属性</span></span><br><span class="line">    <span class="built_in">this</span>.params = params;</span><br><span class="line">    <span class="comment">// 静态属性</span></span><br><span class="line">    Animal.Color = <span class="string">&#x27;black&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line">Animal.prototype = &#123;</span><br><span class="line">    <span class="comment">// 实例方法,定义在Animal的原型上,通过实例调用</span></span><br><span class="line">    <span class="attr">sayHi</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;sayHi&#x27;</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">sayNo</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;sayNo&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 静态方法,定义在构造函数上,只能构造函数调用</span></span><br><span class="line">Animal.sayNo = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;sayNo&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="class-传统的面向对象"><a href="#class-传统的面向对象" class="headerlink" title="class 传统的面向对象"></a>class 传统的面向对象</h2>  <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// class es6 语法糖 相当于构造函数</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">    <span class="comment">// constructor每个类都有,没写会默认添加</span></span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">params</span>)</span> &#123;</span><br><span class="line">        <span class="comment">// 实例属性,实例可以访问到的属性</span></span><br><span class="line">        <span class="built_in">this</span>.params = params;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 实例方法,定义在Animal的原型上,通过实例调用</span></span><br><span class="line">    <span class="function"><span class="title">sayHi</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;sayHi&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 静态方法,定义在构造函数上,只能构造函数调用,这里指类本身</span></span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="title">sayNo</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;sayNo&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// class 添加静态属性的唯一方法</span></span><br><span class="line">Animal.Color = <span class="string">&#x27;black&#x27;</span>;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>在类中可以直接定义方法,但这些方法本质都是定义在类的prototype 属性上的,在类的实例上调用方法,其实就是调用原型链上的方法.</li>
-<li>constructor 方法是类的默认方法,一个类中必须有constructor()方法,constructor方法在new 时会自动调用.<br>  他用于创建对象时给类传递一些参数<br>  每个类只能有一个constructor，多写会报错          </li>
-<li>es6 规定class 只有静态方法,没有静态属性,所以只能通过在class外部 类名.属性 = ‘’ 的方式添加静态属性.</li>
-<li>class和方法内默认都是严格模式</li>
-</ul>
-  <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> animal = <span class="keyword">new</span> Animal();</span><br><span class="line">animal.sayHi(); <span class="comment">// sayHi 实例方法</span></span><br><span class="line"><span class="comment">// Animal.sayHi(); // TypeError: Animal.sayHi is not a function</span></span><br><span class="line"><span class="built_in">console</span>.log(Animal.prototype); <span class="comment">// class:&#123;&#125; 构造函数:&#123; sayHi: [Function: sayHi], sayNo: [Function: sayNo] &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(animal.__proto__); <span class="comment">// &#123; sayHi: [Function: sayHi], sayNo: [Function: sayNo] &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(animal.__proto__.__proto__); <span class="comment">// [Object: null prototype] &#123;&#125;</span></span><br><span class="line">Animal.prototype.sayHi(); <span class="comment">// sayHi</span></span><br><span class="line"><span class="comment">// animal.sayNo(); // TypeError: animal.sayNo is not a function</span></span><br><span class="line">Animal.sayNo(); <span class="comment">// sayNo 静态方法</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>创建实例化对象,使用class 声明的类在构建实例时需用new关键字来进行,实例方法定义在类的prototype 属性上,通过实例调用,静态方法定义在构造函数上,由构造函数调用,使用class 时,这里指class 本身.       </li>
-</ul>
-  <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">Animal.sayHello = <span class="string">&#x27;Hello&#x27;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(Animal.sayHello); <span class="comment">// Hello</span></span><br><span class="line"><span class="built_in">console</span>.log(Animal.Color); <span class="comment">// black</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h1 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h1><h2 id="原生构造函数的继承"><a href="#原生构造函数的继承" class="headerlink" title="原生构造函数的继承"></a>原生构造函数的继承</h2><ul>
-<li>首先需要一个父类</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Animal</span>(<span class="params"></span>) </span>&#123; <span class="comment">// 父类</span></span><br><span class="line">    <span class="built_in">this</span>.species = <span class="string">&#x27;动物&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line">Animal.prototype.sayHi = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;sayHi&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="1-实例继承（原型链继承）"><a href="#1-实例继承（原型链继承）" class="headerlink" title="1.实例继承（原型链继承）"></a>1.实例继承（原型链继承）</h3><ul>
-<li>父类的实例作为子类的原型</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params">name, color</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.color = color;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// prototype模式</span></span><br><span class="line">Cat.prototype = <span class="keyword">new</span> Animal(); <span class="comment">// 原型对象 Cat 继承到 Animal spacies属性</span></span><br><span class="line"><span class="keyword">let</span> cat = <span class="keyword">new</span> Cat(<span class="string">&#x27;---&#x27;</span>,<span class="string">&#x27;---&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(cat.species,cat.sayHi()); <span class="comment">// sayHi  动物</span></span><br><span class="line"><span class="built_in">console</span>.log(Cat.prototype.constructor); <span class="comment">// [Function: Animal]</span></span><br><span class="line"><span class="built_in">console</span>.log(cat.__proto__); <span class="comment">// Animal &#123; species: &#x27;动物&#x27; &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(cat.__proto__.__proto__); <span class="comment">//&#123; sayHi: [Function (anonymous)] &#125;</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>这种继承方式简单易于实现，父类的新增的实例与属性/方法、新增的原型方法/原型属性子类都能访问，实例是子类的实例，也是父类的实例.</p>
-</li>
-<li><p>原型链继承创建子类实例时，不能向父类构造函数中传参数来初始化属性的继承，更重要的是继承的父类的属性是所有子类共享的<u>new Animal()这个对象实例上的属性</u>，这就会导致如果更改了该对象实例的属性，那么这个改变就是所有子类实例共享的.</p>
-</li>
-<li><p>原型链继承无法实现多继承</p>
-<h3 id="2-借用构造函数绑定来继承（伪造对象、经典继承）"><a href="#2-借用构造函数绑定来继承（伪造对象、经典继承）" class="headerlink" title="2.借用构造函数绑定来继承（伪造对象、经典继承）"></a>2.借用构造函数绑定来继承（伪造对象、经典继承）</h3><ul>
-<li>使用父类的构造函数来增强子类实例，相当于是复制父类的实例属性给子类</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params">name, color</span>) </span>&#123;</span><br><span class="line">    Animal.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.color = color;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> cat = <span class="keyword">new</span> Cat(<span class="string">&#x27;---&#x27;</span>,<span class="string">&#x27;---&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(cat); <span class="comment">// Cat &#123; species: &#x27;动物&#x27;, name: &#x27;---&#x27;, color: &#x27;---&#x27; &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(Cat.prototype.constructor); <span class="comment">// [Function: Cat]</span></span><br><span class="line"><span class="built_in">console</span>.log(cat.species); <span class="comment">// 动物</span></span><br><span class="line"><span class="built_in">console</span>.log(cat.sayHi()); <span class="comment">// 报错cat.sayHi is not a function</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>构造继承在子类的构造函数中调用父类的构造函数，这样父类构造函数中的属性就出现在了子类的构造函数中.</li>
-<li>构造继承解决了子类构造函数向父类构造函数中传递参数的问题，并且可以实现多继承（call或者apply多个父类）              </li>
-<li>构造继承子类无法继承父类原型上的方法，所以在实例cat调用父类原型上的sayHi()时会报错.</li>
-</ul>
-<h3 id="3-组合式继承"><a href="#3-组合式继承" class="headerlink" title="3.组合式继承"></a>3.组合式继承</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params">name, color</span>) </span>&#123;</span><br><span class="line">    Animal.apply(<span class="built_in">this</span>,<span class="built_in">arguments</span>);</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.color = color;</span><br><span class="line">&#125;</span><br><span class="line">Cat.prototype = <span class="keyword">new</span> Animal();</span><br><span class="line">Cat.prototype.constructor = Cat;</span><br><span class="line"><span class="keyword">let</span> cat = <span class="keyword">new</span> Cat(<span class="string">&#x27;---&#x27;</span>,<span class="string">&#x27;---&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(cat); <span class="comment">// Cat &#123; species: &#x27;动物&#x27;, name: &#x27;---&#x27;, color: &#x27;---&#x27; &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(Cat.prototype.constructor); <span class="comment">// [Function: Cat]</span></span><br><span class="line"><span class="built_in">console</span>.log(cat.species); <span class="comment">// 动物</span></span><br><span class="line"><span class="built_in">console</span>.log(cat.sayHi()); <span class="comment">// sayHi</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>这种继承方式既可以继承父类属性和方法，也可以继承父类原型的属性和方法</p>
-</li>
-<li><p>组合式继承由于调用了两次父类，所以产生了两份实例        </p>
-</li>
-</ul>
-<h2 id="ES6-class的继承"><a href="#ES6-class的继承" class="headerlink" title="ES6 class的继承"></a>ES6 class的继承</h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">sayHi</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;<span class="built_in">this</span>.name&#125;</span>打招呼`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 继承父类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span> <span class="keyword">extends</span> <span class="title">Animal</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">name,type</span>)</span>&#123;</span><br><span class="line">        <span class="comment">// 继承父类属性</span></span><br><span class="line">        <span class="comment">// super在这里表示父类的构造函数，用来新建一个父类的实例对象</span></span><br><span class="line">        <span class="built_in">super</span>(name); <span class="comment">// 调用父类的constructor(name)</span></span><br><span class="line">        <span class="built_in">this</span>.type = type;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">sayHi</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;<span class="built_in">this</span>.name&#125;</span>汪汪汪`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用Object.getPrototypeOf()方法来从子类上获取父类</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getPrototypeOf(Dog)); <span class="comment">// [class Animal]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> dog = <span class="keyword">new</span> Dog(<span class="string">&#x27;大毛&#x27;</span>,<span class="string">&#x27;金毛&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(dog); <span class="comment">// Dog &#123; name: &#x27;大毛&#x27;, type: &#x27;金毛&#x27; &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(dog.__proto__); <span class="comment">// Animal &#123;&#125;</span></span><br><span class="line">dog.sayHi(); <span class="comment">//大毛汪汪汪</span></span><br></pre></td></tr></table></figure>
-
-
-
-<ul>
-<li><p>class可以通过extends关键字直接实现子类继承父类的属性和方法.  </p>
-</li>
-<li><p>代码量少，简单易懂，extends 的写法比 ES5 的原型链继承，要清晰和方便很多. </p>
-</li>
-<li><p>通过extends关键字实现子类继承父类,除了私有属性，父类的所有属性和方法，都会被子类继承，包括静态方法</p>
-</li>
-<li><p>值得注意的是，ES6 规定，子类必须在constructor()方法中调用super()，然后才能再添加子类自己的实例属性和方法，否则就会报错.这是因为如果不调用super()方法，子类就得不到自己的this对象.子类实例的构建，必须先完成父类的继承，只有super()方法才能让子类实例继承父类.</p>
-</li>
-</ul>
-<h2 id="ES6-的继承机制与-ES5-的不同"><a href="#ES6-的继承机制与-ES5-的不同" class="headerlink" title="ES6 的继承机制与 ES5 的不同."></a>ES6 的继承机制与 ES5 的不同.</h2><ul>
-<li>ES5 的继承机制，首先是在子类中创建自己的this指向，最后将父类的方法添加到this中，即“实例在前，继承在后”，是先创造一个独立的子类的实例对象，然后再将父类的方法添加到这个对象上面.      </li>
-<li>ES6 的继承机制，是使用关键字先创建父类的实例对象this，最后在子类class中修改this，即“继承在前，实例在后”，即先将父类的属性和方法，加到一个空的对象上面，调用super()方法生成一个继承父类的this对象，然后再将该对象作为子类的实例.</li>
-</ul>
-]]></content>
-      <categories>
-        <category>javascript学习笔记</category>
-      </categories>
-      <tags>
-        <tag>javascript</tag>
-        <tag>笔记</tag>
       </tags>
   </entry>
 </search>
